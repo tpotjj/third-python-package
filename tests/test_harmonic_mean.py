@@ -1,6 +1,8 @@
 import sys
+from typing import Union
 
 import pytest
+from pytest import CaptureFixture, MonkeyPatch
 from termcolor import colored
 
 from third_python_package.harmony import main
@@ -14,13 +16,17 @@ from third_python_package.harmony import main
         (["foo", "bar"], "0.0"),
     ],
 )
-def test_harmony_parametrized(inputs, monkeypatch, capsys, expected):
+def test_harmony_parametrized(
+    inputs: list[Union[str | int | float]],
+    monkeypatch: MonkeyPatch,
+    capsys: CaptureFixture[str],
+    expected: str,
+) -> None:
     monkeypatch.setattr(sys, "argv", ["harmony"] + inputs)
     main()
     assert capsys.readouterr().out.strip() == colored(
         expected, "red", "on_cyan", attrs=["bold"]
     )
-
 
 # FRUITS = ["apple"]
 
