@@ -107,7 +107,7 @@ jobs:
           path: ./dist/*.tar.gz
 
   wheels:
-    name: Build wheels on ${{ matrix.os }}
+    name: Build wheels on ${{ matrix.os }} || ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
